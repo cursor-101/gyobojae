@@ -83,6 +83,7 @@ const Materials = ({ materials, setMaterials, teamMembers }) => {
       </div>
 
       <button>서버 스펙 산정 도우미</button>
+      <button>API 사용량 산정 도우미</button>
 
       <button disabled={materials.length === 0}>제출</button>
     </div>
