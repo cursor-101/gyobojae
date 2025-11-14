@@ -77,14 +77,13 @@ const Materials = ({ materials, setMaterials, teamMembers }) => {
         />
       ))}
 
-      <div>
+      <div className="add-container">
         <button onClick={() => setIsModalOpen(true)}>+ 보유 교보재</button>
         <button onClick={addPurchaseItem}>+ 구매 교보재</button>
       </div>
 
       <button>서버 스펙 산정 도우미</button>
 
-      <hr />
       <button disabled={materials.length === 0}>제출</button>
     </div>
   );
