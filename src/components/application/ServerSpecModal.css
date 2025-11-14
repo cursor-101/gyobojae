@@ -1,0 +1,29 @@
+.modal-content .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.modal-content .cancel-btn {
+  background-color: #6c757d;
+}
+
+.modal-content .cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+.result-card {
+  background-color: #e9f5ff;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  padding: 15px;
+  margin: 20px 0;
+}
+
+.result-card p {
+  margin: 5px 0;
+}
+
+.rejection-message-text {
+  white-space: pre-wrap;
+}

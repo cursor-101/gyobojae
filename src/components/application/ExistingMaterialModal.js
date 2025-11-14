@@ -1,29 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import './ExistingMaterialModal.css';
+import existingMaterialsData from '../../data/existing_materials.json';
 
 const ExistingMaterialModal = ({ isOpen, onClose, onSelect }) => {
-  const [materials, setMaterials] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredMaterials, setFilteredMaterials] = useState([]);
+  const [filteredMaterials, setFilteredMaterials] = useState(existingMaterialsData);
 
   useEffect(() => {
     if (isOpen) {
-      fetch('/existing_materials.json')
-        .then(response => response.json())
-        .then(data => {
-          setMaterials(data);
-          setFilteredMaterials(data);
-        });
+      // Reset search when modal opens
+      setSearchTerm('');
+      setFilteredMaterials(existingMaterialsData);
     }
   }, [isOpen]);
 
   useEffect(() => {
-    const results = materials.filter(material =>
+    const results = existingMaterialsData.filter(material =>
       material.item_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       material.item_type.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredMaterials(results);
-  }, [searchTerm, materials]);
+  }, [searchTerm]);
 
   if (!isOpen) {
     return null;

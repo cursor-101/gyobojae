@@ -51,7 +51,7 @@ const ItemRow = ({ item, index, onItemChange, onRemove, teamMembers }) => {
         )} */}
         <div  style={{width: "10rem"}}>
           <label>ISBN (도서만 해당)</label>
-          <input type="text" name="isbn" value={item.isbn} onChange={handleChange} disabled={(item.item_type !== '도서' && item.item_type !== '도서(이북)')}/>
+          <input type="text" name="isbn" value={item.isbn} onChange={handleChange} disabled={isExisting || (item.item_type !== '도서' && item.item_type !== '도서(이북)')}/>
         </div>
         <div style={{width: "10rem"}}>
           <label>구매처명</label>
