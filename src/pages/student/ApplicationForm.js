@@ -77,24 +77,24 @@ function ApplicationForm() {
       }),
     };
 
-    // const reviewResult = await reviewApplicationReasons(materials);
-    // if (reviewResult.status !== 'approved') {
-    //   if (reviewResult.status === 'rejected') {
-    //       const detailedMessage = reviewResult.rejectedItems 
-    //         ? reviewResult.rejectedItems.map(item => `${item.itemNumber}번 (${item.itemName}): ${item.reason}`).join('\n')
-    //         : reviewResult.message;
-    //       setSubmissionStatus({ isOpen: true, status: 'error', message: detailedMessage });
-    //   } else if (reviewResult.status === 'error') {
-    //       if (reviewResult.code === 503) {
-    //           setSubmissionStatus({ isOpen: true, status: 'error', message: "API 호출에 실패했습니다. 나중에 다시 시도해주세요." });
-    //       } else {
-    //           setSubmissionStatus({ isOpen: true, status: 'error', message: reviewResult.message || "신청 검토 중 오류가 발생했습니다." });
-    //       }
-    //   } else {
-    //       setSubmissionStatus({ isOpen: true, status: 'error', message: "AI 응답의 형식이 올바르지 않습니다." });
-    //   }
-    //   return;
-    // }
+    const reviewResult = await reviewApplicationReasons(materials);
+    if (reviewResult.status !== 'approved') {
+      if (reviewResult.status === 'rejected') {
+          const detailedMessage = reviewResult.rejectedItems 
+            ? reviewResult.rejectedItems.map(item => `${item.itemNumber}번 (${item.itemName}): ${item.reason}`).join('\n')
+            : reviewResult.message;
+          setSubmissionStatus({ isOpen: true, status: 'error', message: detailedMessage });
+      } else if (reviewResult.status === 'error') {
+          if (reviewResult.code === 503) {
+              setSubmissionStatus({ isOpen: true, status: 'error', message: "API 호출에 실패했습니다. 나중에 다시 시도해주세요." });
+          } else {
+              setSubmissionStatus({ isOpen: true, status: 'error', message: reviewResult.message || "신청 검토 중 오류가 발생했습니다." });
+          }
+      } else {
+          setSubmissionStatus({ isOpen: true, status: 'error', message: "AI 응답의 형식이 올바르지 않습니다." });
+      }
+      return;
+    }
 
     const { error } = await supabase.rpc('submit_application', { team_data, members_data, materials_data });
 
