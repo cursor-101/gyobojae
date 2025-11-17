@@ -3,16 +3,12 @@ import ItemRow from './ItemRow';
 import ExistingMaterialModal from './ExistingMaterialModal';
 import ServerSpecModal from './ServerSpecModal';
 import ApiUsageModal from './ApiUsageModal';
-import SubmissionModal from './SubmissionModal';
-import { reviewApplicationReasons } from '../../services/geminiService';
 import './ServerSpecModal.css';
 
-const Materials = ({ materials, setMaterials, teamMembers }) => {
+const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationError }) => {
   const [isExistingModalOpen, setIsExistingModalOpen] = useState(false);
   const [isServerSpecModalOpen, setIsServerSpecModalOpen] = useState(false);
   const [isApiUsageModalOpen, setIsApiUsageModalOpen] = useState(false);
-  const [submissionStatus, setSubmissionStatus] = useState({ isOpen: false, status: '', message: '' });
-  const [validationError, setValidationError] = useState('');
 
   const addPurchaseItem = () => {
     const newItem = {
@@ -29,6 +25,7 @@ const Materials = ({ materials, setMaterials, teamMembers }) => {
       quantity: 1,
       reason: '',
       payment_type: '선불',
+      code: '',
     };
     setMaterials(prev => [...prev, newItem]);
   };
@@ -87,85 +84,6 @@ const Materials = ({ materials, setMaterials, teamMembers }) => {
     setMaterials(updatedMaterials);
   };
 
-  const handleSubmit = async () => {
-    setValidationError('');
-
-    // 2. Validate Materials
-    for (let i = 0; i < materials.length; i++) {
-      const item = materials[i];
-      const itemNum = i + 1;
-
-      if (!item.user) {
-        setValidationError(`${itemNum}번 교보재의 사용자를 선택하세요.`);
-        return;
-      }
-      if (!item.reason.trim()) {
-        setValidationError(`${itemNum}번 교보재의 신청 사유를 입력하세요.`);
-        return;
-      }
-
-      if (item.type === 'purchase') {
-        if (!item.item_name.trim()) {
-          setValidationError(`${itemNum}번 교보재의 교보재명을 입력하세요.`);
-          return;
-        }
-        if (!item.vendor_name.trim()) {
-          setValidationError(`${itemNum}번 교보재의 구매처명을 입력하세요.`);
-          return;
-        }
-        if (!item.purchase_url.trim()) {
-          setValidationError(`${itemNum}번 교보재의 구매URL을 입력하세요.`);
-          return;
-        }
-        if (item.price <= 0) {
-          setValidationError(`${itemNum}번 교보재의 금액은 0보다 커야 합니다.`);
-          return;
-        }
-        if (item.quantity <= 0) {
-          setValidationError(`${itemNum}번 교보재의 수량은 0보다 커야 합니다.`);
-          return;
-        }
-      }
-
-      if (item.item_type === '도서' || item.item_type === '도서(이북)') {
-        if (!item.isbn.trim()) {
-          setValidationError(`도서의 ISBN을 입력하세요.`);
-          return;
-        }
-      }
-    }
-
-    setSubmissionStatus({ isOpen: true, status: 'submitting', message: '' });
-    
-    const reviewResult = await reviewApplicationReasons(materials);
-
-    if (reviewResult.status === 'approved') {
-      setSubmissionStatus({ isOpen: true, status: 'success', message: reviewResult.message });
-      // In a real app, you would now save the application to the database.
-    } else if (reviewResult.status === 'rejected') {
-      const detailedMessage = reviewResult.rejectedItems 
-        ? reviewResult.rejectedItems.map(item => `${item.itemNumber}번 (${item.itemName}): ${item.reason}`).join('\n')
-        : reviewResult.message;
-      setSubmissionStatus({ isOpen: true, status: 'error', message: detailedMessage });
-    } else if (reviewResult.status === 'error') {
-      if (reviewResult.code === 503) {
-        setSubmissionStatus({ isOpen: true, status: 'error', message: "API 호출에 실패했습니다. 나중에 다시 시도해주세요." });
-      } else {
-        setSubmissionStatus({ isOpen: true, status: 'error', message: reviewResult.message || "신청 검토 중 오류가 발생했습니다." });
-      }
-    } else {
-      setSubmissionStatus({ isOpen: true, status: 'error', message: "AI 응답의 형식이 올바르지 않습니다." });
-    }
-  };
-
-  const closeSubmissionModal = () => {
-    if (submissionStatus.status === 'success') {
-      // Reset form state or handle navigation
-      setMaterials([]); 
-    }
-    setSubmissionStatus({ isOpen: false, status: '', message: '' });
-  };
-
   return (
     <div className="card">
       <h2>교보재 항목</h2>
@@ -186,13 +104,6 @@ const Materials = ({ materials, setMaterials, teamMembers }) => {
         isOpen={isApiUsageModalOpen}
         onClose={() => setIsApiUsageModalOpen(false)}
         onAddUsage={addApiUsageItem}
-      />
-
-      <SubmissionModal
-        isOpen={submissionStatus.isOpen}
-        status={submissionStatus.status}
-        message={submissionStatus.message}
-        onClose={closeSubmissionModal}
       />
 
       {materials.length === 0 && <p>아직 추가된 교보재가 없습니다.</p>}
@@ -217,7 +128,7 @@ const Materials = ({ materials, setMaterials, teamMembers }) => {
       <button onClick={() => setIsApiUsageModalOpen(true)}>API 사용량 산정 도우미</button>
 
       {validationError && <p style={{ color: 'red', marginTop: '10px' }}>{validationError}</p>}
-      <button onClick={handleSubmit} disabled={materials.length === 0}>제출</button>
+      <button onClick={onSubmit} disabled={materials.length === 0}>제출</button>
     </div>
   );
 };
