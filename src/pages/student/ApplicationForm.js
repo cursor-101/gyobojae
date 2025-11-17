@@ -11,10 +11,22 @@ function ApplicationForm() {
     members: Array(6).fill({ studentId: '', name: '' }),
   });
   const [isTeamInfoConfirmed, setIsTeamInfoConfirmed] = useState(false);
+  const [teamInfoError, setTeamInfoError] = useState('');
   const [materials, setMaterials] = useState([]);
 
   const handleTeamInfoConfirm = () => {
-    // Add validation logic here later
+    setTeamInfoError('');
+    if (!teamInfo.teamCode.trim() || !teamInfo.projectTopic.trim()) {
+      setTeamInfoError('팀 코드와 PJT 주제를 모두 입력하세요.');
+      return;
+    }
+    for (let i = 0; i < teamInfo.members.length; i++) {
+      const member = teamInfo.members[i];
+      if (!member.name.trim() || !member.studentId.trim()) {
+        setTeamInfoError(`팀원 ${i + 1}의 학번, 이름을 모두 입력하세요.`);
+        return;
+      }
+    }
     setIsTeamInfoConfirmed(true);
   };
 
@@ -26,6 +38,7 @@ function ApplicationForm() {
         setTeamInfo={setTeamInfo}
         onConfirm={handleTeamInfoConfirm}
         isConfirmed={isTeamInfoConfirmed}
+        error={teamInfoError}
       />
       {isTeamInfoConfirmed && (
         <Materials 

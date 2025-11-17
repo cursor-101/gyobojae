@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TeamInfo = ({ teamInfo, setTeamInfo, onConfirm, isConfirmed }) => {
+const TeamInfo = ({ teamInfo, setTeamInfo, onConfirm, isConfirmed, error }) => {
   const regions = ['서울', '대전', '광주', '구미', '부울경'];
 
   const handleInputChange = (e) => {
@@ -65,8 +65,9 @@ const TeamInfo = ({ teamInfo, setTeamInfo, onConfirm, isConfirmed }) => {
         <button onClick={addMember} disabled={isConfirmed}>+</button>
       </div>
 
+      {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
       <button onClick={onConfirm} disabled={isConfirmed}>
-        {isConfirmed ? '확인 완료' : '확인'}
+        {isConfirmed ? '확인 완료' : '입력'}
       </button>
     </div>
   );

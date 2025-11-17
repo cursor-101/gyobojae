@@ -12,6 +12,7 @@ const Materials = ({ materials, setMaterials, teamMembers }) => {
   const [isServerSpecModalOpen, setIsServerSpecModalOpen] = useState(false);
   const [isApiUsageModalOpen, setIsApiUsageModalOpen] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState({ isOpen: false, status: '', message: '' });
+  const [validationError, setValidationError] = useState('');
 
   const addPurchaseItem = () => {
     const newItem = {
@@ -87,6 +88,53 @@ const Materials = ({ materials, setMaterials, teamMembers }) => {
   };
 
   const handleSubmit = async () => {
+    setValidationError('');
+
+    // 2. Validate Materials
+    for (let i = 0; i < materials.length; i++) {
+      const item = materials[i];
+      const itemNum = i + 1;
+
+      if (!item.user) {
+        setValidationError(`${itemNum}번 교보재의 사용자를 선택하세요.`);
+        return;
+      }
+      if (!item.reason.trim()) {
+        setValidationError(`${itemNum}번 교보재의 신청 사유를 입력하세요.`);
+        return;
+      }
+
+      if (item.type === 'purchase') {
+        if (!item.item_name.trim()) {
+          setValidationError(`${itemNum}번 교보재의 교보재명을 입력하세요.`);
+          return;
+        }
+        if (!item.vendor_name.trim()) {
+          setValidationError(`${itemNum}번 교보재의 구매처명을 입력하세요.`);
+          return;
+        }
+        if (!item.purchase_url.trim()) {
+          setValidationError(`${itemNum}번 교보재의 구매URL을 입력하세요.`);
+          return;
+        }
+        if (item.price <= 0) {
+          setValidationError(`${itemNum}번 교보재의 금액은 0보다 커야 합니다.`);
+          return;
+        }
+        if (item.quantity <= 0) {
+          setValidationError(`${itemNum}번 교보재의 수량은 0보다 커야 합니다.`);
+          return;
+        }
+      }
+
+      if (item.item_type === '도서' || item.item_type === '도서(이북)') {
+        if (!item.isbn.trim()) {
+          setValidationError(`도서의 ISBN을 입력하세요.`);
+          return;
+        }
+      }
+    }
+
     setSubmissionStatus({ isOpen: true, status: 'submitting', message: '' });
     
     const reviewResult = await reviewApplicationReasons(materials);
@@ -168,6 +216,7 @@ const Materials = ({ materials, setMaterials, teamMembers }) => {
       <button onClick={() => setIsServerSpecModalOpen(true)}>서버 스펙 산정 도우미</button>
       <button onClick={() => setIsApiUsageModalOpen(true)}>API 사용량 산정 도우미</button>
 
+      {validationError && <p style={{ color: 'red', marginTop: '10px' }}>{validationError}</p>}
       <button onClick={handleSubmit} disabled={materials.length === 0}>제출</button>
     </div>
   );
