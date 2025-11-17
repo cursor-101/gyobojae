@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
-// All CSS is in App.css
 
 // --- Sub-component for each application row ---
 const ApplicationRow = ({ app, onDelete }) => {
@@ -13,6 +12,7 @@ const ApplicationRow = ({ app, onDelete }) => {
         <span className="app-class">{app.teams.class_number}반</span>
         <span className="app-team-code">{app.teams.team_code}</span>
         <span className="app-project-topic">{app.teams.project_topic}</span>
+        <span></span>
         <span className="app-created-date">{new Date(app.created_at).toLocaleDateString()}</span>
       </div>
       {isOpen && (
@@ -60,7 +60,8 @@ function OperatorPage() {
     setLoading(true);
     const { data, error } = await supabase
       .from('applications')
-      .select(`
+      .select(
+        `
         id,
         status,
         created_at,
@@ -69,17 +70,12 @@ function OperatorPage() {
           team_code,
           region,
           class_number,
-          project_topic
+          project_topic,
+          team_members ( student_id, name ) 
         ),
         requested_items (
-          id,
-          item_name,
-          item_type,
-          quantity,
-          price,
-          currency,
-          reason,
-          team_members ( name )
+          *,
+          team_members ( student_id, name )
         )
       `)
       .order('created_at', { ascending: false });
@@ -111,8 +107,48 @@ function OperatorPage() {
   };
   
   const handleDownloadCsv = () => {
-    console.log("CSV 다운로드 기능 구현 예정");
-    // In a real implementation, you would generate and download a CSV file here.
+    const header = "지역,반,학번,사용자,팀코드,PJT주제,항목,교보재명,교보재코드(도서의 경우 ISBN),구매처명,구매URL,외화,원화,수량,금액,신청사유,선/후불";
+    
+    console.log(applications); ////////////////////
+    const rows = applications.flatMap(app => 
+      app.requested_items.map(item => {
+        const foreignCurrency = item.currency !== 'KRW' ? item.price : '';
+        const koreanCurrency = item.currency === 'KRW' ? item.price : '';
+        const totalAmount = item.price * item.quantity;
+
+        return [
+          app.teams.region,
+          app.teams.class_number,
+          item.team_members.student_id,
+          item.team_members.name,
+          app.teams.team_code,
+          app.teams.project_topic,
+          item.item_type,
+          item.item_name,
+          item.isbn,
+          item.vendor_name,
+          item.purchase_url,
+          foreignCurrency,
+          koreanCurrency,
+          item.quantity,
+          totalAmount,
+          item.reason,
+          item.payment_type
+        ].join(',');
+      })
+    );
+
+    
+    const csvContent = "\uFEFF" + [header, ...rows].join('\n'); // Add BOM for Excel compatibility with UTF-8 
+    console.log(csvContent); ///////////////
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = '교보재_신청_내역.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
   };
 
   if (loading) {

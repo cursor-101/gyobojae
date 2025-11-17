@@ -65,7 +65,7 @@ function ApplicationForm() {
         projectTopic: teamInfo.projectTopic,
       },
       members_data: teamInfo.members,
-      materials_data: materials.map((item) => {
+      materials_data: materials.map(item => {
         if (item.code) {
           return {
             ...item,
