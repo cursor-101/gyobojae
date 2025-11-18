@@ -6,6 +6,7 @@
 
 .modal-content .cancel-btn {
   background-color: #6c757d;
+  margin-left: 10px;
 }
 
 .modal-content .cancel-btn:hover {

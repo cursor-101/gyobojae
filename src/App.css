@@ -183,6 +183,23 @@ button:disabled {
   gap: 10px;
 }
 
+.add-container button {
+  height: 3rem;
+  border-radius: 1.5rem;
+  background-color: #1e8015;
+}
+
+.add-container button:hover:not(:disabled) {
+  background-color: #165e10;
+}
+
+.submit-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 10px;
+}
+
 .result-display {
   margin-top: 20px;
   padding: 20px;

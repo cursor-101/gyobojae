@@ -70,7 +70,7 @@ const ServerSpecModal = ({ isOpen, onClose, onAddSpec }) => {
             <p>서버 사용 계획을 설명하거나 관련 파일을 업로드해주세요.</p>
             <textarea
               rows="10"
-              placeholder="예: Python FastAPI 백엔드 서버, 하루 1000명 사용자 예상, 이미지 처리 기능 포함..."
+              placeholder="예: Python FastAPI 백엔드 서버, 동시 접속자 20명 예상, 이미지 처리 기능 포함..."
               value={planText}
               onChange={(e) => setPlanText(e.target.value)}
               disabled={isCalculating}

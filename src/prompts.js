@@ -65,7 +65,7 @@ Output 1,333,334 토큰 (1백만 당 단가 $10.00)
 export const getReviewPrompt = (items) => {
   const itemsAsText = items.map((item, index) => 
     `${index + 1}번 항목:
-    - 보유 교보재 여부: ${item.type == 'existing' ? 'True' : 'False'}
+    - 보유 교보재 여부: ${item.type === 'existing' ? 'True' : 'False'}
     - 교보재명: ${item.item_name}
     - 금액: ${item.price} ${item.currency}
     - 수량: ${item.quantity}

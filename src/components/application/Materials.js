@@ -124,11 +124,19 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
         <button onClick={addPurchaseItem}>+ 구매 교보재</button>
       </div>
 
-      <button onClick={() => setIsServerSpecModalOpen(true)}>서버 스펙 산정 도우미</button>
-      <button onClick={() => setIsApiUsageModalOpen(true)}>API 사용량 산정 도우미</button>
+      <div className="submit-container">
+        <button onClick={() => setIsServerSpecModalOpen(true)}>서버 스펙 산정 도우미</button>
+        <button onClick={() => setIsApiUsageModalOpen(true)}>API 사용량 산정 도우미</button>
+      </div>
 
-      {validationError && <p style={{ color: 'red', marginTop: '10px' }}>{validationError}</p>}
-      <button onClick={onSubmit} disabled={materials.length === 0}>제출</button>
+      <hr/>
+
+      <div className="submit-container">
+        {validationError && <p style={{ color: 'red', marginTop: '10px' }}>{validationError}</p>}
+        <button onClick={onSubmit} disabled={materials.length === 0}>제출</button>
+
+        <button onClick={() => onSubmit(false)} disabled={materials.length === 0}>제출 (AI검토 우회)</button>
+      </div>
     </div>
   );
 };
