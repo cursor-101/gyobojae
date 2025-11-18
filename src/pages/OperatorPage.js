@@ -132,7 +132,7 @@ function OperatorPage() {
           koreanCurrency,
           item.quantity,
           totalAmount,
-          item.reason,
+          '"' + item.reason + '"',
           item.payment_type
         ].join(',');
       })
@@ -140,7 +140,6 @@ function OperatorPage() {
 
     
     const csvContent = "\uFEFF" + [header, ...rows].join('\n'); // Add BOM for Excel compatibility with UTF-8 
-    console.log(csvContent); ///////////////
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);

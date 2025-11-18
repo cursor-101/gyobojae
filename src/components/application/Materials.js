@@ -56,6 +56,9 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
       const newItem = {
         id: Date.now(),
         type: 'existing',
+        price: 0,
+        currency: 'KRW',
+        quantity: 1,
         ...selectedMaterial,
         user: '',
         vendor_name: '',
@@ -84,6 +87,9 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
       const newItem = {
         id: Date.now(),
         type: 'existing',
+        price: 0,
+        currency: 'KRW',
+        quantity: 1,
         ...selectedMaterial,
         item_type: 'GMS',
         user: '',
