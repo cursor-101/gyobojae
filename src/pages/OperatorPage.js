@@ -25,7 +25,7 @@ const ApplicationRow = ({ app, onDelete }) => {
                 <th>항목</th>
                 <th>교보재명</th>
                 <th>수량</th>
-                <th>금액</th>
+                <th>금액(원)</th>
                 <th>신청 사유</th>
               </tr>
             </thead>
@@ -114,7 +114,7 @@ function OperatorPage() {
       app.requested_items.map(item => {
         const foreignCurrency = item.currency !== 'KRW' ? item.price : '';
         const koreanCurrency = item.currency === 'KRW' ? item.price : '';
-        const totalAmount = item.price * item.quantity;
+        const totalAmount = (foreignCurrency * 1500 + koreanCurrency) * item.quantity; // USD 1500원
 
         return [
           app.teams.region,

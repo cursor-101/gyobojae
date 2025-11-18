@@ -1,5 +1,5 @@
 import React from 'react';
-import './ServerSpecModal.css'; // Reusing the same CSS
+import './Modal.css';
 
 const SubmissionModal = ({ isOpen, status, message, onClose }) => {
   if (!isOpen) {

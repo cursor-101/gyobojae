@@ -142,7 +142,7 @@ button:disabled {
   gap: 10px; /* Smaller gap for compact layout */
   /* padding-bottom: 10px; Space for scrollbar */
   padding: 5px 10px;
-  align-items: end; /* Align items to the bottom */
+  align-items: start; /* Align items to the bottom */
 }
 
 .item-form > div {
@@ -166,6 +166,12 @@ button:disabled {
 .item-form > div textarea {
   display: block;
   resize: none;
+}
+
+.item-form > div textarea:focus {
+  position: absolute;
+  height: 6rem;
+  width: 15rem;
 }
 
 .item-row button {

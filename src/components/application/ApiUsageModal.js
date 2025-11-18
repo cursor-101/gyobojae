@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { estimateApiUsage } from '../../services/geminiService';
-import './ServerSpecModal.css'; // Reusing the same CSS
+import './Modal.css';
 
 const ApiUsageModal = ({ isOpen, onClose, onAddUsage }) => {
   const [planText, setPlanText] = useState('');
@@ -27,6 +27,7 @@ const ApiUsageModal = ({ isOpen, onClose, onAddUsage }) => {
     if (response.itemName) {
       setResult({
         item_type: '라이선스',
+        is_existing: response.isExisting,
         item_name: response.itemName,
         price: response.price,
         currency: response.currency,

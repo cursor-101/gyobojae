@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ItemRow = ({ item, index, onItemChange, onRemove, teamMembers }) => {
-  const itemTypes = ['서버', '라이선스', '장비', '도서', '도서(이북)', '강의', 'GMS', '기타'];
+  const itemTypes = ['서버', '라이선스', '장비', '도서', '도서(이북)', '강의', '기타'];
   const currencies = ['KRW', 'USD'];
   const paymentTypes = ['선불', '후불'];
 
@@ -66,7 +66,7 @@ const ItemRow = ({ item, index, onItemChange, onRemove, teamMembers }) => {
           <input type="number" name="price" value={item.price} onChange={handleChange} />
         </div>
         <div style={{width: "4.5rem"}}>
-          <label/>
+          <label>단위</label>
           <select name="currency" value={item.currency} onChange={handleChange}>
             {currencies.map(c => <option key={c} value={c}>{c}</option>)}
           </select>

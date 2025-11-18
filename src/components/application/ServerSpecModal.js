@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { estimateServerSpec } from '../../services/geminiService';
-import './ServerSpecModal.css';
+import './Modal.css';
 
 const ServerSpecModal = ({ isOpen, onClose, onAddSpec }) => {
   const [planText, setPlanText] = useState('');
@@ -27,6 +27,7 @@ const ServerSpecModal = ({ isOpen, onClose, onAddSpec }) => {
     if (response.itemName) {
       setResult({
         item_type: '서버',
+        is_existing: response.isExisting,
         item_name: response.itemName,
         price: response.price,
         currency: response.currency,

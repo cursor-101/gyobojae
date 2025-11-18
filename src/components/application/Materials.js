@@ -3,7 +3,8 @@ import ItemRow from './ItemRow';
 import ExistingMaterialModal from './ExistingMaterialModal';
 import ServerSpecModal from './ServerSpecModal';
 import ApiUsageModal from './ApiUsageModal';
-import './ServerSpecModal.css';
+import './Modal.css';
+import existingMaterialsData from '../../data/existing_materials.json';
 
 const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationError }) => {
   const [isExistingModalOpen, setIsExistingModalOpen] = useState(false);
@@ -48,27 +49,61 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
   };
 
   const addSpecItem = (spec) => {
-    const newItem = {
-      id: Date.now(),
-      type: 'purchase',
-      ...spec,
-      user: '',
-      vendor_name: 'Cloud Provider',
-      purchase_url: '',
-    };
-    setMaterials(prev => [...prev, newItem]);
+    if (spec.is_existing) {
+      // 보유 교보재 등록
+      const selectedMaterial = existingMaterialsData.find(item => item.item_name === spec.item_name);
+
+      const newItem = {
+        id: Date.now(),
+        type: 'existing',
+        ...selectedMaterial,
+        user: '',
+        vendor_name: '',
+        purchase_url: '',
+        payment_type: '선불',
+      };
+      setMaterials(prev => [...prev, newItem]);
+    } else {
+      const newItem = {
+        id: Date.now(),
+        type: 'purchase',
+        ...spec,
+        user: '',
+        vendor_name: '',
+        purchase_url: '',
+      };
+      setMaterials(prev => [...prev, newItem]);
+    }
   };
 
   const addApiUsageItem = (usage) => {
-    const newItem = {
-      id: Date.now(),
-      type: 'purchase',
-      ...usage,
-      user: '',
-      vendor_name: 'API Provider',
-      purchase_url: '',
-    };
-    setMaterials(prev => [...prev, newItem]);
+    if (usage.is_existing) {
+      // 보유 교보재 등록
+      const selectedMaterial = existingMaterialsData.find(item => item.item_name === usage.item_name);
+
+      const newItem = {
+        id: Date.now(),
+        type: 'existing',
+        ...selectedMaterial,
+        item_type: 'GMS',
+        user: '',
+        vendor_name: '',
+        purchase_url: '',
+        payment_type: '선불',
+      };
+      setMaterials(prev => [...prev, newItem]);
+    } else {
+      const newItem = {
+        id: Date.now(),
+        type: 'purchase',
+        ...usage,
+        user: '',
+        vendor_name: '',
+        purchase_url: '',
+        payment_type: '선불',
+      };
+      setMaterials(prev => [...prev, newItem]);
+    }
   };
 
   const handleItemChange = (index, e) => {

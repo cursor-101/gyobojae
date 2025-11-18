@@ -7,7 +7,6 @@
   { "item_name": "개발 보드 [Raspberry Pi 4 Model B(4GB)]", "code": "Y00006-00001", "item_type": "장비" },
   { "item_name": "모듈 [Raspberry Pi Camera V2]", "code": "Y00006-00002", "item_type": "장비" },
   { "item_name": "모듈 [서보모터(MG90S)]", "code": "Y00006-00003", "item_type": "장비" },
-  { "item_name": "스마트워치 [Apple Watch SE]", "code": "Y00001-00301", "item_type": "장비" },
   { "item_name": "스마트워치 [Galaxy Fit2]", "code": "Y00001-00302", "item_type": "장비" },
   { "item_name": "스마트폰 [Galaxy S10 128G]", "code": "Y00001-00303", "item_type": "장비" },
   { "item_name": "스마트폰 [Galaxy S20+ 256G]", "code": "Y00001-00304", "item_type": "장비" },

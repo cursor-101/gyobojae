@@ -44,7 +44,7 @@ const TeamInfo = ({ teamInfo, setTeamInfo, onConfirm, isConfirmed, error }) => {
         </div>
         <div style={{width: "5.5rem"}}>
           <label>팀코드</label>
-          <input type="text" name="teamCode" value={teamInfo.teamCode} onChange={handleInputChange} placeholder="A101" disabled={isConfirmed} />
+          <input type="text" name="teamCode" value={teamInfo.teamCode} onChange={handleInputChange} placeholder="e.g. A101" disabled={isConfirmed} />
         </div>
         <div style={{flex: 1}}>
           <label>PJT 주제</label>
