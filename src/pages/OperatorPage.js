@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 
+function escapeCSV(value) {
+    // 문자열에 쉼표, 줄바꿈, 큰따옴표가 포함되어 있는지 확인
+    if (typeof value === 'string' && (value.includes(',') || value.includes('\n') || value.includes('"'))) {
+        // 큰따옴표를 이중 큰따옴표로 변환
+        value = value.replace(/"/g, '""');
+        // 문자열을 큰따옴표로 감싸기
+        return `"${value}"`;
+    }
+    return value;
+}
+
 // --- Sub-component for each application row ---
 const ApplicationRow = ({ app, onDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -124,7 +135,7 @@ function OperatorPage() {
           app.teams.team_code,
           app.teams.project_topic,
           item.item_type,
-          item.item_name,
+          escapeCSV(item.item_name),
           item.isbn,
           item.vendor_name,
           item.purchase_url,
@@ -132,7 +143,7 @@ function OperatorPage() {
           koreanCurrency,
           item.quantity,
           totalAmount,
-          '"' + item.reason + '"',
+          escapeCSV(item.reason),
           item.payment_type
         ].join(',');
       })
