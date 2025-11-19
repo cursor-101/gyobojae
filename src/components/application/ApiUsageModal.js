@@ -26,7 +26,7 @@ const ApiUsageModal = ({ isOpen, onClose, onAddUsage }) => {
 
     if (response.itemName) {
       setResult({
-        item_type: '라이선스',
+        item_type: response.isExisting ? 'GMS' : '라이선스',
         is_existing: response.isExisting,
         item_name: response.itemName,
         price: response.price,

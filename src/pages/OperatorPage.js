@@ -119,8 +119,7 @@ function OperatorPage() {
   
   const handleDownloadCsv = () => {
     const header = "지역,반,학번,사용자,팀코드,PJT주제,항목,교보재명,교보재코드(도서의 경우 ISBN),구매처명,구매URL,외화,원화,수량,금액,신청사유,선/후불";
-    
-    console.log(applications); ////////////////////
+
     const rows = applications.flatMap(app => 
       app.requested_items.map(item => {
         const foreignCurrency = item.currency !== 'KRW' ? item.price : '';

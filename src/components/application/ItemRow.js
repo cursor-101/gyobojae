@@ -37,18 +37,13 @@ const ItemRow = ({ item, index, onItemChange, onRemove, teamMembers }) => {
           <label>항목</label>
           <select name="item_type" value={item.item_type} onChange={handleChange} disabled={isExisting}>
             {itemTypes.map(type => <option key={type} value={type}>{type}</option>)}
+            <option key={'GMS'} value={'GMS'} disabled>GMS</option>
           </select>
         </div>
         <div style={{width: "10rem"}}>
           <label>교보재명</label>
           <input type="text" name="item_name" value={item.item_name} onChange={handleChange} disabled={isExisting} />
         </div>
-        {/* {(item.item_type === '도서' || item.item_type === '도서(이북)') && (
-          <div  style={{width: "10rem"}}>
-            <label>ISBN</label>
-            <input type="text" name="isbn" value={item.isbn} onChange={handleChange} />
-          </div>
-        )} */}
         <div  style={{width: "10rem"}}>
           <label>ISBN (도서만 해당)</label>
           <input type="text" name="isbn" value={item.isbn} onChange={handleChange} disabled={isExisting || (item.item_type !== '도서' && item.item_type !== '도서(이북)')}/>

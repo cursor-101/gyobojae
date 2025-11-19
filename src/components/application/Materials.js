@@ -49,6 +49,7 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
   };
 
   const addSpecItem = (spec) => {
+    console.log(spec); ////////////////////////
     if (spec.is_existing) {
       // 보유 교보재 등록
       const selectedMaterial = existingMaterialsData.find(item => item.item_name === spec.item_name);
@@ -56,15 +57,15 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
       const newItem = {
         id: Date.now(),
         type: 'existing',
-        price: 0,
-        currency: 'KRW',
-        quantity: 1,
         ...selectedMaterial,
+        ...spec,
         user: '',
         vendor_name: '',
         purchase_url: '',
         payment_type: '선불',
       };
+      console.log("보유 추가") ///////////////////
+      console.log(newItem); ////////////////////////
       setMaterials(prev => [...prev, newItem]);
     } else {
       const newItem = {
@@ -75,11 +76,14 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
         vendor_name: '',
         purchase_url: '',
       };
+      console.log("구매 추가") ///////////////////
+      console.log(newItem); ////////////////////////
       setMaterials(prev => [...prev, newItem]);
     }
   };
 
   const addApiUsageItem = (usage) => {
+    console.log(usage); /////////////////////////////
     if (usage.is_existing) {
       // 보유 교보재 등록
       const selectedMaterial = existingMaterialsData.find(item => item.item_name === usage.item_name);
@@ -87,16 +91,15 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
       const newItem = {
         id: Date.now(),
         type: 'existing',
-        price: 0,
-        currency: 'KRW',
-        quantity: 1,
         ...selectedMaterial,
-        item_type: 'GMS',
+        ...usage,
         user: '',
         vendor_name: '',
         purchase_url: '',
         payment_type: '선불',
       };
+      console.log("보유 추가") ///////////////////
+      console.log(newItem); ////////////////////////
       setMaterials(prev => [...prev, newItem]);
     } else {
       const newItem = {
@@ -108,6 +111,8 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
         purchase_url: '',
         payment_type: '선불',
       };
+      console.log("구매 추가") ///////////////////
+      console.log(newItem); ////////////////////////
       setMaterials(prev => [...prev, newItem]);
     }
   };
