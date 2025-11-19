@@ -120,6 +120,14 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
     setMaterials(updatedMaterials);
   };
 
+  const totalPrice = materials.reduce((acc, item) => {
+    if (item.currency === 'KRW') {
+      return acc + item.quantity * item.price;
+    } else {
+      return acc + 1500 * item.quantity * item.price;
+    }
+  }, 0);
+
   return (
     <div className="card">
       <h2>교보재 항목</h2>
@@ -158,6 +166,10 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
       <div className="add-container">
         <button className="existing" onClick={() => setIsExistingModalOpen(true)}>+ 보유 교보재</button>
         <button className="purchase" onClick={addPurchaseItem}>+ 구매 교보재</button>
+      </div>
+
+      <div className="submit-container">
+        <h2>총액: ₩ {totalPrice.toLocaleString()}</h2>
       </div>
 
       <div className="submit-container">

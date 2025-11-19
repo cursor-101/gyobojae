@@ -16,6 +16,14 @@ function escapeCSV(value) {
 const ApplicationRow = ({ app, onDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const totalPrice = app.requested_items.reduce((acc, item) => {
+    if (item.currency === 'KRW') {
+      return acc + item.quantity * item.price;
+    } else {
+      return acc + 1500 * item.quantity * item.price;
+    }
+  }, 0);
+
   return (
     <div className="app-row-container">
       <div className="app-row-header" onClick={() => setIsOpen(!isOpen)}>
@@ -23,8 +31,8 @@ const ApplicationRow = ({ app, onDelete }) => {
         <span className="app-class">{app.teams.class_number}반</span>
         <span className="app-team-code">{app.teams.team_code}</span>
         <span className="app-project-topic">{app.teams.project_topic}</span>
-        <span></span>
-        <span className="app-created-date">{new Date(app.created_at).toLocaleDateString()}</span>
+        <span className="app-total-price">₩ {totalPrice.toLocaleString()}</span>
+        {/* <span className="app-created-date">{new Date(app.created_at).toLocaleDateString()}</span> */}
       </div>
       {isOpen && (
         <div className="app-row-details">
@@ -185,7 +193,12 @@ function OperatorPage() {
           <span>팀 코드</span>
           <span>PJT 주제</span>
           <span></span>
-          <span>신청일</span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span>총액</span>
+          {/* <span>신청일</span> */}
         </div>
         {applications.map(app => (
           <ApplicationRow key={app.id} app={app} onDelete={handleDelete} />

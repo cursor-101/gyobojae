@@ -364,9 +364,10 @@ nav a {
 .app-region { flex: 1; font-weight: bold; }
 .app-class { flex: 1; }
 .app-team-code { flex: 1; font-weight: bold; }
-.app-project-topic { flex: 2; }
+.app-project-topic { flex: 6; }
 /* .app-status { flex: 1; } */
 .app-created-date { flex: 1; }
+.app-total-price { flex: 1; text-align: end; }
 
 .app-row-details {
   padding: 20px;
