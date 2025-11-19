@@ -18,7 +18,7 @@ const ItemRow = ({ item, index, onItemChange, onRemove, teamMembers }) => {
 
   return (
     <div className="item-row">
-      <h4>{index + 1}.</h4>
+      <h4 className={item.type}>{index + 1}</h4>
       <div className="item-form">
         <div style={{width: "5.5rem"}}>
           <label>사용자</label>
@@ -76,7 +76,9 @@ const ItemRow = ({ item, index, onItemChange, onRemove, teamMembers }) => {
         </div>
         <div style={{width: "15rem"}}>
           <label>신청 사유</label>
-          <textarea name="reason" value={item.reason} onChange={handleChange}></textarea>
+          <div className="ta-wrapper">
+            <textarea name="reason" value={item.reason} onChange={handleChange}></textarea>
+          </div>
         </div>
         <div style={{width: "4rem"}}>
           <label>선/후불</label>

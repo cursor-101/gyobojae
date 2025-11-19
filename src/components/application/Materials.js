@@ -49,7 +49,6 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
   };
 
   const addSpecItem = (spec) => {
-    console.log(spec); ////////////////////////
     if (spec.is_existing) {
       // 보유 교보재 등록
       const selectedMaterial = existingMaterialsData.find(item => item.item_name === spec.item_name);
@@ -64,8 +63,6 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
         purchase_url: '',
         payment_type: '선불',
       };
-      console.log("보유 추가") ///////////////////
-      console.log(newItem); ////////////////////////
       setMaterials(prev => [...prev, newItem]);
     } else {
       const newItem = {
@@ -76,14 +73,11 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
         vendor_name: '',
         purchase_url: '',
       };
-      console.log("구매 추가") ///////////////////
-      console.log(newItem); ////////////////////////
       setMaterials(prev => [...prev, newItem]);
     }
   };
 
   const addApiUsageItem = (usage) => {
-    console.log(usage); /////////////////////////////
     if (usage.is_existing) {
       // 보유 교보재 등록
       const selectedMaterial = existingMaterialsData.find(item => item.item_name === usage.item_name);
@@ -98,8 +92,6 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
         purchase_url: '',
         payment_type: '선불',
       };
-      console.log("보유 추가") ///////////////////
-      console.log(newItem); ////////////////////////
       setMaterials(prev => [...prev, newItem]);
     } else {
       const newItem = {
@@ -111,8 +103,6 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
         purchase_url: '',
         payment_type: '선불',
       };
-      console.log("구매 추가") ///////////////////
-      console.log(newItem); ////////////////////////
       setMaterials(prev => [...prev, newItem]);
     }
   };
@@ -166,8 +156,8 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
       ))}
 
       <div className="add-container">
-        <button onClick={() => setIsExistingModalOpen(true)}>+ 보유 교보재</button>
-        <button onClick={addPurchaseItem}>+ 구매 교보재</button>
+        <button className="existing" onClick={() => setIsExistingModalOpen(true)}>+ 보유 교보재</button>
+        <button className="purchase" onClick={addPurchaseItem}>+ 구매 교보재</button>
       </div>
 
       <div className="submit-container">

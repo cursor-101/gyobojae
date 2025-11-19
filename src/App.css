@@ -132,7 +132,19 @@ button:disabled {
 .item-row h4 {
   margin-top: 0;
   margin-bottom: 15px;
-  color: #34495e;
+  height: 24px;
+  width: 24px;
+  border-radius: 12px;
+  text-align: center;
+  color: white;
+}
+
+.item-row .existing {
+  background-color: #1e8015;
+}
+
+.item-row .purchase {
+  background-color: #1e9cb3;
 }
 
 .item-form {
@@ -140,7 +152,6 @@ button:disabled {
   flex-wrap: nowrap; /* Prevent wrapping */
   overflow-x: auto; /* Enable horizontal scrolling */
   gap: 10px; /* Smaller gap for compact layout */
-  /* padding-bottom: 10px; Space for scrollbar */
   padding: 5px 10px;
   align-items: start; /* Align items to the bottom */
 }
@@ -166,10 +177,10 @@ button:disabled {
 .item-form > div textarea {
   display: block;
   resize: none;
+  transition: height 0.2s;
 }
 
 .item-form > div textarea:focus {
-  position: absolute;
   height: 6rem;
   width: 15rem;
 }
@@ -192,11 +203,22 @@ button:disabled {
 .add-container button {
   height: 3rem;
   border-radius: 1.5rem;
+}
+
+.add-container .existing {
   background-color: #1e8015;
 }
 
-.add-container button:hover:not(:disabled) {
+.add-container .existing:hover:not(:disabled) {
   background-color: #165e10;
+}
+
+.add-container .purchase {
+  background-color: #1e9cb3;
+}
+
+.add-container .purchase:hover:not(:disabled) {
+  background-color: #146775;
 }
 
 .submit-container {
