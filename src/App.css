@@ -198,7 +198,6 @@ button:disabled {
 
 .item-form > div textarea:focus {
   height: 6rem;
-  width: 15rem;
 }
 
 .item-row button {

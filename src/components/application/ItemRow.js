@@ -70,11 +70,11 @@ const ItemRow = ({ item, index, onItemChange, onRemove, teamMembers }) => {
           <label>수량</label>
           <input type="number" name="quantity" value={item.quantity} onChange={handleChange} />
         </div>
-        <div>
+        <div style={{width: "7.5rem"}}>
           <label>총 금액</label>
           <input type="text" value={`${(item.price * item.quantity).toLocaleString()} ${item.currency}`} disabled />
         </div>
-        <div style={{width: "15rem"}}>
+        <div style={{width: "17.5rem"}}>
           <label>신청 사유</label>
           <div className="ta-wrapper">
             <textarea name="reason" value={item.reason} onChange={handleChange}></textarea>
