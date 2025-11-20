@@ -300,11 +300,16 @@ nav a {
 .status-search-form {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
 }
 
 .status-search-form input {
   flex-grow: 1;
+  height: 44px;
+}
+
+.status-search-form button {
+  width: 140px;
+  height: 44px;
 }
 
 .error-message {

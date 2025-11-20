@@ -75,20 +75,23 @@ function CheckStatus() {
   }
 
   return (
-    <div>
-      <h2>신청 내역 확인</h2>
-      <form onSubmit={handleSearch} className="status-search-form">
-        <input 
-          type="text"
-          value={teamCode}
-          onChange={(e) => setTeamCode(e.target.value)}
-          placeholder="팀 코드를 입력하세요 (e.g., A101)"
-          disabled={loading}
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? '조회 중...' : '조회'}
-        </button>
-      </form>
+    <div className="operator-page-container">
+      <div className="header">
+        <h1>신청 내역 확인</h1>
+        <form onSubmit={handleSearch} className="status-search-form">
+          <input 
+            type="text"
+            value={teamCode}
+            onChange={(e) => setTeamCode(e.target.value)}
+            placeholder="팀 코드 (e.g., A101)"
+            disabled={loading}
+            />
+          <button type="submit" disabled={loading}>
+            {loading ? '조회 중...' : '조회'}
+          </button>
+        </form>
+      </div>
+      {!application && (<p>팀 코드를 입력하면 신청 내역을 확인할 수 있습니다.</p>)}
 
       {error && <p className="error-message">{error}</p>}
       
