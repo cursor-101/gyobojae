@@ -146,19 +146,21 @@ button:disabled {
 .item-row h4 {
   margin-top: 0;
   margin-bottom: 15px;
-  height: 24px;
+  /* height: 24px;
   width: 24px;
   border-radius: 12px;
-  text-align: center;
-  color: white;
+  text-align: center; */
+  color: #34495e;
 }
 
-.item-row .existing {
-  background-color: #1e8015;
+.item-row.existing {
+  /* background: linear-gradient(#ffffff 55%, #eaffe8); */
+  background-color: #eaffe8;
 }
 
-.item-row .purchase {
-  background-color: #1e9cb3;
+.item-row.purchase {
+  /* background: linear-gradient(#ffffff 55%, #e2fbff); */
+  background-color: #e2fbff;
 }
 
 .item-form {

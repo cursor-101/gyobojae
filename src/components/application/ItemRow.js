@@ -17,8 +17,8 @@ const ItemRow = ({ item, index, onItemChange, onRemove, teamMembers }) => {
   const studentId = selectedMember ? selectedMember.studentId : '';
 
   return (
-    <div className="item-row">
-      <h4 className={item.type}>{index + 1}</h4>
+    <div className={`item-row ${item.type}`}>
+      <h4>{index + 1}.</h4>
       <div className="item-form">
         <div style={{width: "5.5rem"}}>
           <label>사용자</label>
