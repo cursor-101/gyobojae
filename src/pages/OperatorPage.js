@@ -43,7 +43,7 @@ const ApplicationRow = ({ app, onDelete }) => {
                 <th>사용자</th>
                 <th>항목</th>
                 <th>교보재명</th>
-                <th>ISBN(교보재 코드)</th>
+                <th>교보재 코드(ISBN)</th>
                 <th>수량</th>
                 <th>금액(원)</th>
                 <th>신청 사유</th>

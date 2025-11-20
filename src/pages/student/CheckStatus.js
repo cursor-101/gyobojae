@@ -31,6 +31,7 @@ function CheckStatus() {
           requested_items (
             id,
             item_name,
+            isbn,
             item_type,
             quantity,
             price,
@@ -108,6 +109,7 @@ function CheckStatus() {
                   <th>사용자</th>
                   <th>항목</th>
                   <th>교보재명</th>
+                  <th>교보재 코드(ISBN)</th>
                   <th>수량</th>
                   <th>금액</th>
                   <th>신청 사유</th>
@@ -119,6 +121,7 @@ function CheckStatus() {
                     <td>{item.team_members ? item.team_members.name : 'N/A'}</td>
                     <td>{item.item_type}</td>
                     <td>{item.item_name}</td>
+                    <td>{item.isbn}</td>
                     <td>{item.quantity}</td>
                     <td>{item.price.toLocaleString()} {item.currency}</td>
                     <td>{item.reason}</td>
