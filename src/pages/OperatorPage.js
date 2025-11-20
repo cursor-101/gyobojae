@@ -171,7 +171,14 @@ function OperatorPage() {
   };
 
   if (loading) {
-    return <div><h2>운영자 페이지</h2><p>신청 내역을 불러오는 중...</p></div>;
+    return (
+      <div className="operator-page-container">
+        <div className="header">
+          <h1>운영자 페이지</h1>
+        </div>
+        <p>신청 내역을 불러오는 중...</p>
+      </div>
+    );
   }
   
   if (error) {
