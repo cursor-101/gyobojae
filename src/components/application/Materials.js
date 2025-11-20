@@ -49,10 +49,9 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
   };
 
   const addSpecItem = (spec) => {
-    if (spec.is_existing) {
+    const selectedMaterial = existingMaterialsData.find(item => item.item_name === spec.item_name);
+    if (selectedMaterial) {
       // 보유 교보재 등록
-      const selectedMaterial = existingMaterialsData.find(item => item.item_name === spec.item_name);
-
       const newItem = {
         id: Date.now(),
         type: 'existing',
@@ -78,10 +77,9 @@ const Materials = ({ materials, setMaterials, teamMembers, onSubmit, validationE
   };
 
   const addApiUsageItem = (usage) => {
-    if (usage.is_existing) {
+    const selectedMaterial = existingMaterialsData.find(item => item.item_name === usage.item_name);
+    if (selectedMaterial) {
       // 보유 교보재 등록
-      const selectedMaterial = existingMaterialsData.find(item => item.item_name === usage.item_name);
-
       const newItem = {
         id: Date.now(),
         type: 'existing',
