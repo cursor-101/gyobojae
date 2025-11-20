@@ -10,7 +10,7 @@ import './App.css';
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className="App" style={{ backgroundImage: "url(/bg.png)" }} >
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/student" element={<StudentPage />} />

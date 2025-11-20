@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// not used
+
 function StudentPage() {
   return (
     <div>

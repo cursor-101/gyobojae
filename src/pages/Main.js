@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom';
 
 function Main() {
   return (
-    <div>
-      <h1>교보재 신청 사이트</h1>
+    <div className="landing">
+      <img src="/logo.png"/>
       <nav>
-        <Link to="/student">
-          <button>교육생</button>
+        <Link to="/student/apply">
+          <button>교보재 신청</button>
+        </Link>
+        <Link to="/student/status">
+          <button>신청 내역 확인</button>
         </Link>
         <Link to="/operator">
-          <button>운영자</button>
+          <button>운영자 페이지</button>
         </Link>
       </nav>
     </div>
